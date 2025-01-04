@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos en Tiempo Real</title>
     <script src="/socket.io/socket.io.js"></script>
+    
 </head>
 <body>
     <h1>Productos en Tiempo Real</h1>
@@ -22,14 +23,12 @@
         const nameInput = document.getElementById('product-name');
         const priceInput = document.getElementById('product-price');
 
-   // Actualizar la lista de productos
-socket.on('updateProducts', (products) => {
-    productList.innerHTML = products.map(product => `
-        <li>${product.title} - $${product.price} - Stock: ${product.stock} 
-        <button onclick="deleteProduct(${product.id})">Eliminar</button></li>
-    `).join('');
-});
-
+        // Actualizar la lista de productos
+        socket.on('updateProducts', (products) => {
+            productList.innerHTML = products.map(product => `
+                <li>${product.title} - $${product.price} <button onclick="deleteProduct(${product.id})">Eliminar</button></li>
+            `).join('');
+        });
 
         // Enviar un nuevo producto
         form.addEventListener('submit', (e) => {
